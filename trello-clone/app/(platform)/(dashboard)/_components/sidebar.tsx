@@ -54,8 +54,30 @@ export const Sidebar = ({storageKey = 't-sidebar-state'}: SidebarProps) => {
     if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
         return (
             <>
-            <Skeleton />
-            </>
+            <div className="font-medium text-xs flex items-center mb-1">
+                <span className="pl-4">
+                    Workspaces
+                </span>
+                <Button
+                    asChild
+                    type="button"
+                    size="icon"
+                    variant="ghost"
+                    className="ml-auto"
+                >
+                    <Skeleton className="h-4 w-4" />
+                </Button>          
+            </div>
+            <Accordion
+                type='multiple'
+                defaultValue={[]}
+                className='space-y-2'
+            >
+                {[...Array(3)].map((_, index) => (
+                    <Skeleton key={index} className="h-8 w-full" />
+                ))}
+            </Accordion>
+        </>
         );
     }
 

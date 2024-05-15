@@ -1,6 +1,7 @@
 'use client'
 
-import { AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from '@/components/ui/button';
 import { cn } from "@/lib/utils";
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -46,11 +47,6 @@ export const NavItem = ({
             href: `/organization/${organization.id}/activity`
         },
         {
-            label: 'Settings',
-            icons: <Settings className='h-4 w-4 mr-2' />,
-            href: `/organization/${organization.id}/settings`
-        },
-        {
             label: 'Billing',
             icons: <Settings className='h-4 w-4 mr-2' />,
             href: `/organization/${organization.id}/settings`
@@ -83,6 +79,23 @@ export const NavItem = ({
                     <span className='font-medium text-sm'>{organization.name}</span>
                 </div>
             </AccordionTrigger>
+            <AccordionContent className='pt-1 text-neutral-700'>
+                {routes.map((route) => (
+                    <Button
+                        key={route.href}
+                        size='sm'
+                        onClick={() => onClick(route.href)}
+                        className={cn(
+                            'w-full font-normal justify-start pl-10 mb-1',
+                            pathname === route.href && 'bg-sky-500/10'
+                        )}
+                        variant='ghost'
+                    >
+                        {route.icons}
+                        {route.label}
+                    </Button>
+                ))}
+            </AccordionContent>
         </AccordionItem>
     )
 }
